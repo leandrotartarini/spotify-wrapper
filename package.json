@@ -2,12 +2,25 @@
   "name": "spotify-wrapper",
   "version": "1.0.0",
   "description": "A wrapper to work with the Spotify Web API.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "clear": "rimraf lib",
+    "create:lib": "./node_modules/.bin/babel --out-dir lib src",
+    "build": "npm run clear && npm run create:lib",
+    "build:watch": "npm run clear && npm run create:lib -- --watch",
     "lint": "./node_modules/.bin/eslint src/*.js",
-    "test": "./node_modules/.bin/mocha tests/**/*.spec.js --watch",
+    "test": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register --watch",
     "test:tdd": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register --watch",
     "test:coverage": "nyc npm test"
+  },
+  "nyc": {
+    "reporter": [
+      "text",
+      "htlm"
+    ],
+    "exclude": [
+      "tests/**"
+    ]
   },
   "repository": {
     "type": "git",
@@ -25,6 +38,9 @@
   },
   "homepage": "https://github.com/leandrotartarini/spotify-wrapper#readme",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^8.0.5",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.2.0",
@@ -33,6 +49,12 @@
     "eslint-plugin-import": "^2.14.0",
     "husky": "^1.2.0",
     "mocha": "^5.2.0",
-    "nyc": "^13.1.0"
-  }
+    "node-fetch": "^2.3.0",
+    "nyc": "^13.1.0",
+    "rimraf": "^2.6.3",
+    "sinon": "^7.2.3",
+    "sinon-chai": "^3.3.0",
+    "webpack": "^4.29.0"
+  },
+  "dependencies": {}
 }
