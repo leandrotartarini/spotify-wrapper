@@ -20,6 +20,9 @@ describe('Search', () => {
     stubedFetch.restore();
   });
 
+  after( () => {
+    process.exit();
+  });
   
   describe('smoke test', () => {
     
