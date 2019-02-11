@@ -59,7 +59,7 @@ describe('Album', () => {
     it('should return the correct data from promise', () => {
       const album = getAlbum('4aawyAB9vmqN3uQ7FjRGTy');
       album.then((data) => {
-        expect(data).to.be.eql({album: 'name'});
+        expect(data.json()).to.be.eql({album: 'name'});
       });
     });
   });
@@ -79,7 +79,7 @@ describe('Album', () => {
     it('should return the correct data from promise', () => {
       const albums = getAlbums(['4aawyAB9vmqN3uQ7FjRGTy', '4aawyAB9vmqN3uQ7FjRGTk']);
       albums.then((data) => {
-      expect(data).to.be.eql({album: 'name'});
+      expect(data.json()).to.be.eql({album: 'name'});
       });
     });
   });
@@ -99,7 +99,7 @@ describe('Album', () => {
     it('should return the correct data from Promise', () => {
       const tracks = getTracks('4aawyAB9vmqN3uQ7FjRGTy');
       tracks.then((data) => {
-        expect(data).to.be.eql({ album: 'name'});
+        expect(data.json()).to.be.eql({ album: 'name'});
       });
     });
   });

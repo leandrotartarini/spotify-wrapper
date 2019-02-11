@@ -53,29 +53,34 @@ describe('Search', () => {
 
     it('should receive the correct URL', () => {
       
-      context('passing one type', () => {
-        const artists = search('Incubus', 'artist');
-        expect(stubedFetch).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist');
+      context('passing one type axios', () => {
+        search('Incubus', 'artist').then(response => {
+          expect(response.config.url).to.be.eql('https://api.spotify.com/v1/search?q=Incubus&type=artist');
+        });
+        search('Incubus', 'album').then(response => {
+          expect(response.config.url).to.be.eql('https://api.spotify.com/v1/search?q=Incubus&type=album');
+        });
+      });
 
-        const albums = search('Incubus', 'album');
-        expect(stubedFetch).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=album');
+      context('passing more than one type', () => {
+        search('Incubus', ['artist', 'album']).then(response => {
+        expect(response.config.url).to.be.eql('https://api.spotify.com/v1/search?q=Incubus&type=artist,album');
+        });
       });
       
-      context('passing more than one type', () =>{
-        const artistsAndAlbums = search('Incubus', ['artist', 'album']);
-        expect(stubedFetch).to.have.been
-          .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist,album');
-      });
+      // context('passing more than one type', () => {
+      //   search('Incubus', ['artist', 'album']);
+      //   expect(stubedFetch).to.have.been
+      //     .calledWith('https://api.spotify.com/v1/search?q=Incubus&type=artist,album');
+      // });
     });
 
     it('should return the JSON data from the Promise', () => {
       const artists = search('Incubus', 'artists');
-
       //expect(artists.resolveValue).to.be.eql({body: 'json'});
       artists.then((data) => {
-        expect(data).to.be.eql({body: 'json'});
+        console.log(data);
+        expect(data.json()).to.be.eql({body: 'json'});
       });
     });
   });
